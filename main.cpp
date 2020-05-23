@@ -1,11 +1,8 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
+
+
 using namespace std;
 class Position;
 class Piece
@@ -66,7 +63,7 @@ public:
         else if (row == 7 && player == 'R')
             isKing = true;
     }
-    
+
 
 };
 
@@ -90,7 +87,7 @@ public:
 
     void setContainingValue(char x)
     {
-       this -> containingValue = x;
+        this->containingValue = x;
     }
 
     char getContainingValue()
@@ -114,7 +111,7 @@ public:
         if (containingValue != 'R' && containingValue != 'W')
             containingValue = ' ';
     }
-   
+
 
 };
 
@@ -468,8 +465,8 @@ int main()
     getline(cin, p1);
     cout << "\nEnter name of player 2: ";
     getline(cin, p2);
-   
-    
+
+
 
     cout << endl << "----------COIN TOSS--------";
     cout << endl << endl << p1 << " press h/H for heads and t/T fot tails: ";
@@ -480,62 +477,64 @@ int main()
         cin >> toss;
     }
     srand(time(NULL));
-    choice = rand() ;
-    if ((choice %2 == 1 && toss == 'h') || choice%2 == 1 && toss == 'H')
+    choice = rand();
+    if ((choice % 2 == 1 && toss == 'h') || choice % 2 == 1 && toss == 'H')
     {
-        cout << endl << p1 << " has won the toss and will be red in first game."<<endl;
+        cout << endl << p1 << " has won the toss and will be red in first game." << endl;
         toss_winner = '1';
     }
     else
-    {       cout << endl << p2 << " has won the toss and will be red in first game."<<endl;
-    toss_winner = '2';
-}
-    
+    {
+        cout << endl << p2 << " has won the toss and will be red in first game." << endl;
+        toss_winner = '2';
+    }
+
     cout << endl << endl << "If you will enter a wrong move your turn will be skipped.";
     cout << endl << "Making a jump is Compulsory! " << endl << endl;
-        cout << p1 << " " << score_p1 << " : " << score_p2 << " " << p2<<endl;
-        if ( toss_winner == '1')
-            cout << endl << p1 << " is red" << endl << endl;
-       
-        else
-            cout << endl << p2 << " is red" << endl << endl;
-        theGame();
-        if (toss_winner == '1')
-        {
+    cout << p1 << " " << score_p1 << " : " << score_p2 << " " << p2 << endl;
+    if (toss_winner == '1')
+        cout << endl << p1 << " is red" << endl << endl;
 
-            if (winner == 'D')
-            {
-                score_p1 = score_p1;
-                score_p2 = score_p2;
-            }
-            else if (winner == 'R')
-                score_p1++;
-            else
-                score_p2++;
-        }
-            
-        else
+    else
+        cout << endl << p2 << " is red" << endl << endl;
+    system("pause");
+    theGame();
+    if (toss_winner == '1')
+    {
+
+        if (winner == 'D')
         {
-            if (winner == 'D')
-            {
-                score_p1 = score_p1;
-                score_p2 = score_p2;
-            }
-            else if ( winner == 'R')
-                score_p2++;
-            else  
-                score_p1++;
-          
+            score_p1 = score_p1;
+            score_p2 = score_p2;
         }
-        cout << p1 << " " << score_p1 << " : " << score_p2 << " " << p2 << endl;
-        
-        
+        else if (winner == 'R')
+            score_p1++;
+        else
+            score_p2++;
+    }
+
+    else
+    {
+        if (winner == 'D')
+        {
+            score_p1 = score_p1;
+            score_p2 = score_p2;
+        }
+        else if (winner == 'R')
+            score_p2++;
+        else
+            score_p1++;
+
+    }
+    cout << p1 << " " << score_p1 << " : " << score_p2 << " " << p2 << endl;
+
+
     if (score_p1 > score_p2)
         cout << endl << p1 << " wins! ";
     else if (score_p2 > score_p1)
         cout << endl << p2 << " wins! ";
     else
-        cout << endl <<  " Match is drawn";
+        cout << endl << " Match is drawn";
     return 0;
 }
 
@@ -610,7 +609,7 @@ void player_init(Piece pieces[], Position board[8][8], char player)
 
 void theGame()
 {
-   
+
     Position board[8][8];
     bool gameCompelete = false, isPlayerOne = true, jumpChecked = false;
     Piece* red_pieces = new Piece[numOfReds];
@@ -621,8 +620,7 @@ void theGame()
     player_init(red_pieces, board, 'R');
     player_init(white_pieces, board, 'W');
     renderBoard(board);
-    cout << "\nLoading...\n" << endl;
-    sleep(5);
+ 
     while (!gameCompelete)
     {
         if (isPlayerOne) // RED TURN
@@ -768,21 +766,22 @@ void theGame()
             jumpChecked = false;
         }
     }
-   
+
 }
 
 void renderBoard(Position board[8][8])
 {
     for (int i = 0;i < 8;i++)
     {
-        cout << "   " << i ;
+        cout << "   " << i;
     }
     cout << endl;
+    cout << " ";
     for (int i = 0; i < 11; i++)
         cout << "---";
 
     cout << endl;
-   
+
     for (int row = 0; row < 8; row++)
     {
         cout << row;
@@ -799,6 +798,7 @@ void renderBoard(Position board[8][8])
         }
 
         cout << endl;
+        cout << " ";
         for (int i = 0; i < 11; i++)
             cout << "---";
         cout << endl;
